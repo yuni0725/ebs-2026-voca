@@ -58,3 +58,6 @@ class Meaning(models.Model):
 
     def __str__(self):
         return f"{self.voca.word} : {self.type} {self.definition}"
+
+    def word(self):
+        return self.voca.word

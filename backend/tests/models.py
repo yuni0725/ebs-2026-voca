@@ -9,5 +9,5 @@ class Test(models.Model):
 
 
 class Question(models.Model):
-    answer = models.ForeignKey(Voca, on_delete=models.CASCADE, related_name="answer")
+    answer = models.ForeignKey(Meaning, on_delete=models.CASCADE, related_name="answer")
     choice = models.ManyToManyField(Meaning)
