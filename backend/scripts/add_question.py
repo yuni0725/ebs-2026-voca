@@ -10,6 +10,8 @@ django.setup()
 from vocas.models import Voca, Meaning
 from tests.models import Question, Test
 
+import random
+
 for i in range(1, 100):
 
     voca_instance = Voca.objects.order_by("?").first()
@@ -23,6 +25,11 @@ for i in range(1, 100):
             .order_by("?")[0:4]
         )
         question = Question.objects.create(answer=voca_meaning)
-        question.choice.set(meaning_instance)
+        choice = [*meaning_instance, voca_meaning]
+        random.shuffle(choice)
+        if not choice:
+            pass
+        else:
+            question.choice.set(choice)
     except IndexError:
         print("index out of range")

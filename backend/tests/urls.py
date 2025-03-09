@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path("/<int:pk>", views.Test.as_view()),
+    path("", views.AllTestAPIView.as_view()),
+    path("/<int:day>", views.TestAPIView.as_view()),
 ]

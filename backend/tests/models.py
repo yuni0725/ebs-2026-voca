@@ -4,8 +4,11 @@ from vocas.models import Meaning
 
 
 class Test(models.Model):
+    """Test Model Definition"""
+
     day = models.PositiveIntegerField()
     question = models.ManyToManyField("Question", related_name="questions")
+    created_at = models.DateField(auto_now=True)
 
 
 class Question(models.Model):

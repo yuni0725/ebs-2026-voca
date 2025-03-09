@@ -8,7 +8,7 @@ class TestMeaning(serializers.ModelSerializer):
 
     class Meta:
         model = Meaning
-        exclude = ("id", "voca")
+        exclude = ("voca",)
 
     def get_word(self, meaning):
         return meaning.word()

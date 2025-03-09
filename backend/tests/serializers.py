@@ -9,7 +9,13 @@ class QuestionSerializer(ModelSerializer):
 
     class Meta:
         model = Question
-        exclude = ("id",)
+        exclude = ()
+
+
+class AllTestSerializer(ModelSerializer):
+    class Meta:
+        model = Test
+        fields = ("day", "created_at")
 
 
 class TestSerializer(ModelSerializer):
@@ -17,4 +23,4 @@ class TestSerializer(ModelSerializer):
 
     class Meta:
         model = Test
-        fields = ("day", "question")
+        fields = ("day", "question", "created_at")
