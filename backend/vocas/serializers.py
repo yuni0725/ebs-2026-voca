@@ -3,7 +3,6 @@ from .models import Voca, Meaning
 
 
 class TestMeaning(serializers.ModelSerializer):
-
     word = serializers.SerializerMethodField()
 
     class Meta:

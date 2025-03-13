@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { getAllTests } from "../api";
 import { NoDecoLink } from "../components/LinkWithNoDeco";
+import { useRecoilValue } from "recoil";
+import { dayScoreState } from "../atom";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -73,6 +75,7 @@ interface IAllTests {
 }
 
 function Home() {
+  const score = useRecoilValue(dayScoreState);
   const { isLoading, data } = useQuery<IAllTests[]>({
     queryKey: ["tests"],
     queryFn: getAllTests,
@@ -92,9 +95,13 @@ function Home() {
           {isLoading
             ? null
             : data?.map((test) => (
-                <Tr>
+                <Tr key={test.day}>
                   <Td>{test.day}</Td>
-                  <Td>점수</Td>
+                  <Td>
+                    {score[test.day] || score[test.day] === 0
+                      ? `${score[test.day]}/45`
+                      : "-"}
+                  </Td>
                   <Td>{test.created_at}</Td>
                   <Td>
                     <LinkWrapper>

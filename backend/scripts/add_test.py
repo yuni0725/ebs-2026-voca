@@ -9,8 +9,8 @@ django.setup()
 
 from tests.models import Question, Test
 
-question_instance = Question.objects.order_by("?")[0:30]
 
-for i in range(1, 3):
+for i in range(1, 11):
+    question_instance = Question.objects.order_by("?")[0:45]
     test = Test.objects.create(day=i)
     test.question.set(question_instance)
