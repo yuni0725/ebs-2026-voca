@@ -1,5 +1,6 @@
 asgiref==3.8.1
 Brotli==1.1.0
+certifi==2025.1.31
 click==8.1.8
 colorama==0.4.6
 dj-database-url==2.3.0
@@ -15,9 +16,11 @@ pandas==2.2.3
 psycopg2-binary==2.9.10
 python-dateutil==2.9.0.post0
 pytz==2025.1
+sentry-sdk==2.22.0
 six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.12.2
 tzdata==2025.1
+urllib3==2.3.0
 uvicorn==0.34.0
 whitenoise==6.9.0
