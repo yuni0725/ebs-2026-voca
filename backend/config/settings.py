@@ -168,7 +168,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://ebs-2026-voca.onrender.com"]
 
 import sentry_sdk
 
