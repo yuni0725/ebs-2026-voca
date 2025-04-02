@@ -9,8 +9,10 @@ django.setup()
 
 from tests.models import Question, Test
 
+last_instance = Test.objects.order_by("-day").first()
+start_day = last_instance.day + 1 if last_instance else 1
 
-for i in range(1, 11):
+for i in range(start_day, 15):
     question_instance = Question.objects.order_by("?")[0:45]
     test = Test.objects.create(day=i)
     test.question.set(question_instance)
