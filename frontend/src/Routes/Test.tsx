@@ -11,6 +11,8 @@ import {
   IDayTestResult,
 } from "../atom";
 
+import { Button } from "@/components/ui/button";
+
 const Wrapper = styled.div`
   width: 100vw;
   padding: 30px 30px;
