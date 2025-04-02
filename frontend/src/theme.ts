@@ -4,7 +4,7 @@ export const LightTheme: DefaultTheme = {
   accentColor: "#1abc9c",
   selectedColor: "#bdc3c7",
   bgColor: {
-    normal: "#ecf0f1",
+    normal: "#000000",
     darker: "#bdc3c7",
   },
   color: "black",
