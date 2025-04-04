@@ -32,15 +32,29 @@ function Home() {
     queryFn: getAllTests,
   });
   return (
-    <Wrapper className="grid grid-cols-4 !pb-20">
+    <Wrapper className="grid grid-cols-4 !pb-20 gap-3">
       {isLoading ? (
         <>
-          <Skeleton className="h-50 !min-w-150 !max-w-300 rounded-xl" />
-          <Skeleton className="h-50 !min-w-150 !max-w-300 rounded-xl !mt-10" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
+          <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
         </>
       ) : (
         data?.map((test) => (
-          <Card key={test.day} className="!p-5 !m-2 !max-w-300 !min-w-20">
+          <Card key={test.day} className="!p-5 !max-w-300 !min-w-20">
             <CardHeader>
               <CardTitle className="!text-xl !font-bold">
                 {test.day}회차
