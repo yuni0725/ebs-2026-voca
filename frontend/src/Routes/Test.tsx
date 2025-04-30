@@ -11,13 +11,6 @@ import {
   IDayTestResult,
 } from "../atom";
 
-const Wrapper = styled.div`
-  width: 100vw;
-  padding: 30px 30px;
-
-  overflow: hidden;
-`;
-
 const Score = styled.div`
   width: 100%;
   font-size: 16px;
@@ -33,8 +26,6 @@ const TestSheet = styled.div`
   background-color: #e9ebed;
   border-radius: 15px;
   width: 100%;
-
-  padding: 30px;
 `;
 
 const Title = styled.div`
@@ -83,7 +74,6 @@ const ChoiceButton = styled.button<{
   font-weight: 300;
 
   padding: 5px;
-  margin: 0px 10px;
 
   cursor: pointer;
 
@@ -122,6 +112,7 @@ const MemoButton = memo(
         onClick={onClick}
         selected={selected}
         right={right}
+        className="!p-1 !md:p-3 !flex-1"
       >
         {children}
       </ChoiceButton>
@@ -131,31 +122,14 @@ const MemoButton = memo(
 
 const QuestionWrapper = styled.div`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 const Question = styled.div`
-  font-size: 18px;
   font-weight: 500;
 `;
 
-const ChoiceWrapper = styled.div`
-  margin: 10px 0px;
-  padding: 0px 5px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-`;
-
-const ButtonWrapper = styled.div`
-  margin-top: 20px;
-  width: 40%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-
 const SubmitButton = styled.button`
-  padding: 10px;
-  margin: 0px 10px;
   border: 1px solid ${(props) => props.theme.color};
   border-radius: 5px;
   cursor: pointer;
@@ -166,8 +140,6 @@ const SubmitButton = styled.button`
 `;
 
 const ResetButton = styled.button`
-  padding: 10px;
-  margin: 0px 10px;
   border: 1px solid ${(props) => props.theme.color};
   border-radius: 5px;
   cursor: pointer;
@@ -249,12 +221,23 @@ function Test() {
   const onResetClicked = () => {
     setSubmit(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+
     setUserSelected({});
+
     setRecoilUserSelected((prev) => {
       if (dayPk) {
-        prev[dayPk] = userSelected;
+        const newPrev = { ...prev };
+        delete newPrev[parseInt(dayPk)];
+        return newPrev;
       }
       return prev;
+    });
+    setScore((prev) => {
+      const newScore = { ...prev };
+      if (dayPk) {
+        delete newScore[parseInt(dayPk)];
+      }
+      return newScore;
     });
   };
 
@@ -268,6 +251,8 @@ function Test() {
     if (recoilUserSelected[dayPk]) {
       setUserSelected(recoilUserSelected[dayPk]);
       setSubmit(true);
+    } else {
+      setSubmit(false);
     }
   });
 
@@ -296,8 +281,8 @@ function Test() {
   }, [submit]);
 
   return (
-    <Wrapper>
-      <TestSheet>
+    <div className="p-5 md:p-15">
+      <TestSheet className="!p-5 !md:p-15">
         <title>Test</title>
         <Title>Day {dayPk}</Title>
         {isLoading || !data ? (
@@ -307,11 +292,14 @@ function Test() {
             {submit ? <Score>{dayPk ? score[dayPk] : 0} / 45</Score> : null}
             {data.question.map((problem, index) => (
               <QuestionWrapper key={index}>
-                <Question>
+                <Question className="!mb-2 !text-xl">
                   {index + 1}.{" "}
                   {index > 22 ? problem.answer.definition : problem.answer.word}
                 </Question>
-                <ChoiceWrapper key={problem.id}>
+                <div
+                  key={problem.id}
+                  className="flex items-stretch justify-start flex-wrap gap-1 md:gap-2 md:grid md:grid-cols-5"
+                >
                   {problem.choice.map((word) => (
                     <MemoButton
                       disable={submit ? true : false}
@@ -331,17 +319,21 @@ function Test() {
                       {index > 22 ? word.word : word.definition}
                     </MemoButton>
                   ))}
-                </ChoiceWrapper>
+                </div>
               </QuestionWrapper>
             ))}
-            <ButtonWrapper>
-              <SubmitButton onClick={onSubmit}>제출</SubmitButton>
-              <ResetButton onClick={onResetClicked}>입력 초기화</ResetButton>
-            </ButtonWrapper>
           </>
         )}
+        <div className="flex justify-center gap-2 !mt-10 h-10">
+          <SubmitButton className="p-5 w-full h-full" onClick={onSubmit}>
+            제출
+          </SubmitButton>
+          <ResetButton className="p-5 w-full h-full" onClick={onResetClicked}>
+            입력 초기화
+          </ResetButton>
+        </div>
       </TestSheet>
-    </Wrapper>
+    </div>
   );
 }
 

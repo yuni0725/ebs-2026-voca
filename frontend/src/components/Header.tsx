@@ -4,7 +4,6 @@ import { NoDecoLink } from "./LinkWithNoDeco";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 const Wrapper = styled.div`
-  width: 100vw;
   height: 10vh;
 
   display: grid;
@@ -16,7 +15,6 @@ const Title = styled.div`
   align-items: center;
   justify-content: center;
 
-  font-size: 24px;
   font-weight: 600;
 `;
 
@@ -31,14 +29,16 @@ const IconWrapper = styled.div`
 function Header() {
   return (
     <Wrapper>
-      <IconWrapper>
+      <IconWrapper className="!text-m md:!text-xl">
         <NoDecoLink to="/">
           <FaHouse></FaHouse>
         </NoDecoLink>
       </IconWrapper>
       <HoverCard>
         <HoverCardTrigger className="flex justify-center items-center">
-          <Title>2026 EBS English Voca Test</Title>
+          <Title className="!text-xl md:!text-2xl">
+            2026 EBS English Voca Test
+          </Title>
         </HoverCardTrigger>
         <HoverCardContent className="!p-10 text-center">
           <span className="text-xs text-center">
@@ -46,7 +46,7 @@ function Header() {
           </span>
         </HoverCardContent>
       </HoverCard>
-      <IconWrapper>
+      <IconWrapper className="!text-m md:!text-xl">
         <FaAlignJustify />
       </IconWrapper>
     </Wrapper>

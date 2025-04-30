@@ -15,10 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const Wrapper = styled.div`
-  width: 100vw;
-  padding: 0px 30px;
-`;
+const Wrapper = styled.div``;
 
 interface IAllTests {
   day: number;
@@ -32,7 +29,7 @@ function Home() {
     queryFn: getAllTests,
   });
   return (
-    <Wrapper className="grid grid-cols-4 !pb-20 gap-3">
+    <Wrapper className="grid grid-cols-1 md:grid-cols-4 gap-3">
       {isLoading ? (
         <>
           <Skeleton className="h-50 !min-w-20 !max-w-300 rounded-xl" />
@@ -54,7 +51,7 @@ function Home() {
         </>
       ) : (
         data?.map((test) => (
-          <Card key={test.day} className="!p-5 !max-w-300 !min-w-20">
+          <Card key={test.day} className="!p-5">
             <CardHeader>
               <CardTitle className="!text-xl !font-bold">
                 {test.day}회차
@@ -72,7 +69,6 @@ function Home() {
               <Button variant={"link"} className="!text-accent-foreground">
                 <NoDecoLink to={`test/${test.day}`}>Link →</NoDecoLink>
               </Button>
-              <p className="!text-xs">업데이트 날짜 : {test.created_at}</p>
             </CardFooter>
           </Card>
         ))

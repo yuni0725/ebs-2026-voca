@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import styled from "styled-components";
 import Header from "./Header";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
 function Layout() {
   return (
-    <Wrapper>
+    <Wrapper className="!px-5 md:!px-15 xl:!px-30">
       <Header></Header>
       <Outlet></Outlet>
     </Wrapper>
