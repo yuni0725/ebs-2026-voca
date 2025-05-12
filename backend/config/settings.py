@@ -169,16 +169,20 @@ AUTH_USER_MODEL = "users.User"
 
 
 if DEBUG:
-    CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+        "http://localhost:5174",
+    ]
+
 else:
     CORS_ALLOWED_ORIGINS = ["https://ebs-2026-voca.onrender.com"]
 
-import sentry_sdk
+# import sentry_sdk
 
-if not DEBUG:
-    sentry_sdk.init(
-        dsn="https://0e87cd3dc68efe036430a6390a963fcb@o4508981484126208.ingest.us.sentry.io/4508981485109248",
-        # Add data like request headers and IP for users,
-        # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
-        send_default_pii=True,
-    )
+# if not DEBUG:
+#     sentry_sdk.init(
+#         dsn="https://0e87cd3dc68efe036430a6390a963fcb@o4508981484126208.ingest.us.sentry.io/4508981485109248",
+#         # Add data like request headers and IP for users,
+#         # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+#         send_default_pii=True,
+#     )

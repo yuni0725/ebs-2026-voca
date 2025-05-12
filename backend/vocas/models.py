@@ -3,6 +3,7 @@ from django.db import models
 
 class Voca(models.Model):
     word = models.CharField(max_length=100, unique=True)
+    day = models.IntegerField()
 
     def __str__(self):
         return self.word
@@ -55,6 +56,7 @@ class Meaning(models.Model):
     voca = models.ForeignKey(Voca, on_delete=models.CASCADE, related_name="meanings")
     type = models.CharField(max_length=10, choices=TYPE)
     definition = models.TextField()
+    day = models.IntegerField()
 
     def __str__(self):
         return f"{self.voca.word} : {self.type} {self.definition}"
