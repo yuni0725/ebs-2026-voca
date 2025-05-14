@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -21,7 +22,9 @@ const Title = styled.div`
 function Header() {
   return (
     <Wrapper>
-      <Title>2026 EBS English Voca Test</Title>
+      <Link to="/">
+        <Title>2026 EBS English Voca Test</Title>
+      </Link>
     </Wrapper>
   );
 }

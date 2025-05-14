@@ -57,15 +57,15 @@ function Home() {
           <Card key={test.day} className="!p-5 !max-w-300 !min-w-20">
             <CardHeader>
               <CardTitle className="!text-xl !font-bold">
-                {test.day}회차
+                Day {test.day}
               </CardTitle>
             </CardHeader>
             <CardContent className="flex gap-5 flex-col">
               <p className="text-m">
                 점수 :{" "}
                 {score[test.day] || score[test.day] === 0
-                  ? `${score[test.day]}/45`
-                  : "0/45"}
+                  ? `${score[test.day]}/30`
+                  : "0/30"}
               </p>
             </CardContent>
             <CardFooter className="flex justify-between gap-3">

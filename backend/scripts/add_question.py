@@ -12,9 +12,10 @@ from tests.models import Question, Test
 
 import random
 
-for i in range(1, 1001):
 
-    voca_instance = Voca.objects.order_by("?").first()
+vocas = Voca.objects.all()
+for voca in vocas:
+    voca_instance = voca
     voca_meaning = voca_instance.meanings.order_by("?").first()
     voca_type = voca_meaning.type
 
@@ -24,7 +25,7 @@ for i in range(1, 1001):
             .exclude(voca=voca_instance)
             .order_by("?")[0:4]
         )
-        question = Question.objects.create(answer=voca_meaning)
+        question = Question.objects.create(answer=voca_meaning, day=voca_instance.day)
         choice = [*meaning_instance, voca_meaning]
         random.shuffle(choice)
         if not choice:

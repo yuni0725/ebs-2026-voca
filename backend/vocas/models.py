@@ -3,7 +3,7 @@ from django.db import models
 
 class Voca(models.Model):
     word = models.CharField(max_length=100, unique=True)
-    day = models.IntegerField()
+    day = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.word

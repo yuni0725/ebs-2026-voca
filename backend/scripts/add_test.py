@@ -9,10 +9,10 @@ django.setup()
 
 from tests.models import Question, Test
 
-last_instance = Test.objects.order_by("-day").first()
-start_day = last_instance.day + 1 if last_instance else 1
+import random
 
-for i in range(start_day, 15):
-    question_instance = Question.objects.order_by("?")[0:45]
+for i in range(1, 61):
+    question_instance = list(Question.objects.filter(day=i))
+    random.shuffle(question_instance)
     test = Test.objects.create(day=i)
     test.question.set(question_instance)

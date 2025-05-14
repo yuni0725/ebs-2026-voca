@@ -14,7 +14,7 @@ django.setup()
 from vocas.models import Voca, Meaning  # 앱 이름 변경 필요
 
 # CSV 파일 경로 (Django 프로젝트 폴더 기준)
-file_path = "VOCA_1800-wtfwtf.csv"
+file_path = "voca.csv"
 
 # CSV 파일 로드
 df = pd.read_csv(file_path, encoding="utf-8")
@@ -31,19 +31,25 @@ TYPE_MAP = {
 # 데이터 저장
 for _, row in df.iterrows():
     # 단어 저장 (중복 방지)
-    voca, created = Voca.objects.get_or_create(word=row["단어"])
+
+    voca, created = Voca.objects.get_or_create(word=row["영어"], day=row["day"])
 
     # 품사별로 뜻 저장
-    for col in df.columns[1:]:  # '단어' 컬럼 제외
+    for col in df.columns[2:]:  # '영어' 컬럼 제외
         if pd.notna(row[col]):  # 값이 존재하는 경우만 처리
             meaning_type = TYPE_MAP.get(col)  # 품사 매핑
             if meaning_type:
                 # 쉼표(,)로 구분된 여러 뜻을 개별적으로 저장
-                definitions = [definition.strip() for definition in row[col].split(",")]
+                definitions = [
+                    definition.strip() for definition in row[col].split(", ")
+                ]
 
                 for definition in definitions:
                     Meaning.objects.create(
-                        voca=voca, type=meaning_type, definition=definition
+                        voca=voca,
+                        day=row["day"],
+                        type=meaning_type,
+                        definition=definition,
                     )
 
 print("save")

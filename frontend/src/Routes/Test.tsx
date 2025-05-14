@@ -10,6 +10,7 @@ import {
   IDayScoreState,
   IDayTestResult,
 } from "../atom";
+import { TestResponse } from "../api";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -44,13 +45,6 @@ const Title = styled.div`
   font-weight: 600;
   margin-bottom: 15px;
 `;
-
-interface IChoice {
-  active: string;
-  right: string;
-  key: number;
-  word: string;
-}
 
 const ChoiceButton = styled.button<{
   selected: string;
@@ -178,25 +172,6 @@ const ResetButton = styled.button`
   transition: 0.1s ease-in-out;
 `;
 
-interface IChoice {
-  id: number;
-  word: string;
-  type: string;
-  definition: string;
-}
-
-interface IQuestion {
-  id: number;
-  answer: IChoice;
-  choice: IChoice[];
-}
-
-interface ITest {
-  day: number;
-  question: IQuestion[];
-  created_at: string;
-}
-
 enum ButtonStatus {
   stay = "stay",
   right = "right",
@@ -210,9 +185,9 @@ enum EUserSelected {
 
 function Test() {
   const { dayPk } = useParams();
-  const { isLoading, data } = useQuery<ITest>({
+  const { isLoading, data } = useQuery<TestResponse>({
     queryKey: [`test:${dayPk}`, dayPk],
-    queryFn: getTest,
+    queryFn: () => getTest(Number(dayPk)),
   });
   const [score, setScore] = useRecoilState<IDayScoreState>(dayScoreState);
   const [submit, setSubmit] = useState<boolean>(false);
@@ -251,10 +226,18 @@ function Test() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setUserSelected({});
     setRecoilUserSelected((prev) => {
+      const newPrev = { ...prev };
       if (dayPk) {
-        prev[dayPk] = userSelected;
+        delete newPrev[Number(dayPk)];
       }
-      return prev;
+      return newPrev;
+    });
+    setScore((prev) => {
+      const newPrev = { ...prev };
+      if (dayPk) {
+        delete newPrev[Number(dayPk)];
+      }
+      return newPrev;
     });
   };
 
@@ -304,12 +287,11 @@ function Test() {
           "Loading..."
         ) : (
           <>
-            {submit ? <Score>{dayPk ? score[dayPk] : 0} / 45</Score> : null}
+            {submit ? <Score>{dayPk ? score[dayPk] : 0} / 30</Score> : null}
             {data.question.map((problem, index) => (
               <QuestionWrapper key={index}>
                 <Question>
-                  {index + 1}.{" "}
-                  {index > 22 ? problem.answer.definition : problem.answer.word}
+                  {index + 1}. {problem.answer.word}
                 </Question>
                 <ChoiceWrapper key={problem.id}>
                   {problem.choice.map((word) => (
@@ -328,7 +310,7 @@ function Test() {
                           : EUserSelected.notSelected
                       }
                     >
-                      {index > 22 ? word.word : word.definition}
+                      {word.definition}
                     </MemoButton>
                   ))}
                 </ChoiceWrapper>
